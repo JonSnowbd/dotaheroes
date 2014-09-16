@@ -1,0 +1,11 @@
+%html
+
+    = haml :"blocks/head"
+
+    %body{ :class => "container" }
+
+        = haml :"blocks/header"
+
+        = haml @location
+
+        = haml :"blocks/footer"
