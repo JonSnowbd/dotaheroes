@@ -1,5 +1,7 @@
 require('sinatra')
 require('haml')
+require('json')
+
 require('./dotaheroes.rb')
 
 # Handle home page
@@ -15,7 +17,7 @@ end
 # Handle hero data look up
 get '/hero/:heroname' do |heroname|
 
-	if File.exist?('data/heroes/' + heroname.downcase + '.hinfo')
+	if Dotaheroes.exist?(heroname)
 		@location = :"blocks/hero/heroblock"
 	else
 		@location = :"blocks/404"
@@ -24,8 +26,15 @@ get '/hero/:heroname' do |heroname|
 	@title = heroname.capitalize + " - Dota Heroes"
 
 	# Retrieve .hinfo data
-	@hero = Dotaheroes.Mine(heroname)
+	@hero = Dotaheroes.mine(heroname)
 
 	haml :index
+
+end
+
+# Allow querying for list of heroes
+get '/list/hero' do
+
+	Dotaheroes.list().to_json
 
 end

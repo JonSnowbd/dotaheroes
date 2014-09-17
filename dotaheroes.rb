@@ -9,7 +9,7 @@ module Dotaheroes
     end
 
     # Check if there is a .hinfo for the corresponding hero
-    def Dotaheroes.exists?(heroname)
+    def Dotaheroes.exist?(heroname)
         if File.exist?(Dotaheroes.path(heroname))
             return true
         else
@@ -17,10 +17,17 @@ module Dotaheroes
         end
     end
 
-    # Retrieve hero info from .hinfo files.
-    def Dotaheroes.Mine(heroname)
+    # List all heroes
+    def Dotaheroes.list()
+        @temp = Dir.entries(@hero_data).select {|f| !File.directory? f}
+        @temp.map!{ |item| item.chomp('.hinfo') }
+        return { :heroes => @temp }
+    end
 
-        if Dotaheroes.exists?(heroname)
+    # Retrieve hero info from .hinfo files.
+    def Dotaheroes.mine(heroname)
+
+        if Dotaheroes.exist?(heroname)
 
             # Open the file
             @file = File.open(Dotaheroes.path(heroname)).read
@@ -76,4 +83,8 @@ module Dotaheroes
         end
 
     end
+end
+
+if __FILE__ == $0
+    Dotaheroes.list()
 end
