@@ -1,4 +1,18 @@
+%section.hero-block
 
-%section
-    %h2= @hero[:name]
-    %img{ :src => "#{@hero[:image]}" }
+    %div.hero-poster{ :style => "background-image:url('#{@hero[:image]}');"  }
+
+    .container
+        %h1.center #{@hero[:name]}
+
+        %h2 Tips
+        %ul
+            - @hero[:tip].each do |tip|
+                %li
+                    %div #{tip}
+
+        %h2 Counters
+        %ul
+            - @hero[:counter].each do |counter|
+                %li
+                    %div #{counter}

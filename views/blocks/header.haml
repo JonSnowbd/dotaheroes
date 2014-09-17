@@ -1,2 +1,6 @@
 %header
-    %h1 Dota heroes
+    .container
+        %h1.pull-left.header-title
+            %a{ :href => '/' } Dota heroes
+
+        %input.pull-right.search-heroes#search{ :type => 'text', :placeholder => 'Search for heroes...' }

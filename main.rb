@@ -6,6 +6,8 @@ require('./dotaheroes.rb')
 get '/' do
 
 	@location = :"blocks/homepage/home"
+	@title = "Dota Heroes"
+
 	haml :index
 
 end
@@ -13,15 +15,17 @@ end
 # Handle hero data look up
 get '/hero/:heroname' do |heroname|
 
-	# The main content block is the hero block.
-	@location = :"blocks/hero/heroblock"
+	if File.exist?('data/heroes/' + heroname.downcase + '.hinfo')
+		@location = :"blocks/hero/heroblock"
+	else
+		@location = :"blocks/404"
+	end
 
-	# MOCK DATA
-	@hero = {
-		:name => 'Abaddon',
-		:image => 'http://i.imgur.com/R67L263.jpg'
-	}
+	@title = heroname.capitalize + " - Dota Heroes"
+
+	# Retrieve .hinfo data
+	@hero = Dotaheroes.Mine(heroname)
 
 	haml :index
-	
+
 end
