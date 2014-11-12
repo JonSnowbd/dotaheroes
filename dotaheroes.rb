@@ -3,12 +3,12 @@ module Dotaheroes
 
     @hero_data = 'data/heroes/'
 
-    # Get the path to the heroes .hinfo
+    # Get the path to the heroes .icefrog
     def Dotaheroes.path(heroname)
-        return @hero_data + heroname.downcase.tr('_', '') + '.hinfo'
+        return @hero_data + heroname.downcase.tr('_', '') + '.icefrog'
     end
 
-    # Check if there is a .hinfo for the corresponding hero
+    # Check if there is a .icefrog for the corresponding hero
     def Dotaheroes.exist?(heroname)
         if File.exist?(Dotaheroes.path(heroname))
             return true
@@ -20,11 +20,11 @@ module Dotaheroes
     # List all heroes
     def Dotaheroes.list()
         @temp = Dir.entries(@hero_data).select {|f| !File.directory? f}
-        @temp.map!{ |item| item.chomp('.hinfo') }
+        @temp.map!{ |item| item.chomp('.icefrog') }
         return { :heroes => @temp }
     end
 
-    # Retrieve hero info from .hinfo files.
+    # Retrieve hero info from .icefrog files.
     def Dotaheroes.mine(heroname)
 
         if Dotaheroes.exist?(heroname)

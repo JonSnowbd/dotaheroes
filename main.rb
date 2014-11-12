@@ -25,7 +25,7 @@ get '/hero/:heroname' do |heroname|
 
 	@title = heroname.capitalize + " - Dota Heroes"
 
-	# Retrieve .hinfo data
+	# Retrieve .icefrog data
 	@hero = Dotaheroes.mine(heroname)
 
 	haml :index
